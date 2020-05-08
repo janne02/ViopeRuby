@@ -1,0 +1,37 @@
+def lukija(nimi)
+lista = ""
+tiedosto = File.open(nimi,"r")
+tiedosto.each {|rivi| lista << rivi}
+tiedosto.close
+lista = lista.gsub("\n"," ")
+lista = lista.split(" ")
+return lista
+end
+
+def sensuroi(kokoteksti, sanat)
+  sanoja = sanat.length
+  teksti = kokoteksti
+  kierros = 0
+  while true
+    if kierros >= sanoja
+      puts "Tallennetaan siistitty versio..."
+      tiedosto = File.open("6-3b_tiedosto.txt","w")
+      tiedosto.write(teksti)
+      tiedosto.close
+      puts "Valmis! Lopetetaan."
+      break
+    else
+      teksti.gsub!(sanat[kierros],"*****")
+    end
+    kierros += 1
+  end
+end
+
+teksti = ""
+tiedosto = File.open("6-3c_tiedosto.txt")
+tiedosto.each {|rivi| teksti << rivi}
+tiedosto.close
+
+tuhmat = lukija("6-3a_tiedosto.txt")
+
+sensuroi(teksti,tuhmat)
